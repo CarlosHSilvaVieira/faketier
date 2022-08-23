@@ -4,6 +4,7 @@ interface ThemeData {
   colorDark: string;
   text: string;
   border: string;
+  fontSize: string;
 }
 
 export interface Theme {
@@ -13,11 +14,12 @@ export interface Theme {
 
 const light: Theme = {
   primary: {
-    color: '#9e31f5',
-    colorLight: '#c990f6',
-    colorDark: '#7400d1',
-    text: '#fff',
+    color: '#FFCB42',
+    colorLight: '#FFF4CF',
+    colorDark: '#FFB200',
+    text: '#333',
     border: '#f1c40f',
+    fontSize: '16px',
   },
   secondary: {
     color: '#16a085',
@@ -25,6 +27,7 @@ const light: Theme = {
     colorDark: '#1e7060',
     text: '#fff',
     border: '#f1c40f',
+    fontSize: '16px',
   },
 };
 
@@ -35,6 +38,7 @@ const dark: Theme = {
     colorDark: '#25313d',
     text: '#fff',
     border: '#95a5a6',
+    fontSize: '16px',
   },
   secondary: {
     color: '#34495e',
@@ -42,6 +46,7 @@ const dark: Theme = {
     colorDark: '#2a3744',
     text: '#fff',
     border: '#95a5a6',
+    fontSize: '16px',
   },
 };
 
