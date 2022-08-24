@@ -1,15 +1,36 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
+import GoBackIcon from '../../assets/icon/go-back-icon.svg'
+import FakkiterLogo from '../../assets/icon/fakkiter-logo.svg'
 
-export const SignUpContainer = styled.View`
+export const SignUpContainer = styled.SafeAreaView`
   flex: 1;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 50px 20px;
-  justify-content: flex-start;
   position: relative;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BackgroundContainer = styled.View`
+  flex: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0%;
   background-color: ${({theme}) => theme.primary.colorLight};
   opacity: 0.4;
+  z-index: -1;
+  object-fit: cover;
+`;
+
+
+export const Heading = styled.View`
+  box-sizing: border-box;
+  height: 100px;
+  width: 100%;
+  padding: 0 40px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Title = styled.Text`
@@ -19,10 +40,41 @@ export const Title = styled.Text`
   font-weight: 700;
   letter-spacing: 16px;
   box-sizing: border-box;
-
-  position: absolute;
-  top: 20%;
+  text-align: center;
 `;
+
+export const Brand = styled.View``;
+
+export const Form = styled.View`
+  width: 100%;
+  padding: 0 40px;
+`;
+
+export const SignInButton = styled.TouchableOpacity`
+  width: 100%;
+  margin-top: 50px;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SignInButtonText = styled.Text`
+  color: ${({ theme }) => theme.primary.text};
+`;
+
+
+export const Logo = styled(FakkiterLogo).attrs(({ theme }) => ({
+  fill: theme.primary.text,
+}))`
+`;
+
+export const SignInButtonIcon = styled(GoBackIcon).attrs(({ theme }) => ({
+  fill: theme.primary.text,
+}))`
+  margin-right: 10px;
+`
+
 
 export const styles = StyleSheet.create({
   image: {
