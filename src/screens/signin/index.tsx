@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react'
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Button } from '../../components/button'
 import { Input } from '../../components/input'
-import routes from '../../routes/routes'
 import {
   Brand,
   Form,
@@ -50,7 +49,7 @@ export const SignIn = () => {
             secureTextEntry
           />
           <Button text="Login" loading={loading} />
-          <SignUpButton onPress={() => navigate(routes.SIGNUP as never)}>
+          <SignUpButton onPress={() => navigate('SignUp')}>
             <SignUpButtonIcon />
             <SignUpButtonText>Sign Up</SignUpButtonText>
           </SignUpButton>

@@ -1,9 +1,14 @@
 import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack'
-import routes from './routes'
+import { routes } from './index'
 import { SignIn } from '../screens/signin'
 import { SignUp } from '../screens/signup'
+
+export type AuthScreens = {
+    SignIn: undefined,
+    SignUp: undefined,
+}
 
 export const AuthRoutes = () => {
 

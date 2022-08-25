@@ -22,7 +22,6 @@ import {
 import { Button } from '../../components/button'
 import { Input } from '../../components/input'
 import { register } from '../../services/auth'
-import routes from '../../routes/routes'
 
 export const SignUp = () => {
   const background = require('../../assets/img/fake-1.jpg')
@@ -39,7 +38,7 @@ export const SignUp = () => {
     try {
       setLoading(true)
       await register({ email, name, password, username })
-      navigate(routes.SIGNIN as never)
+      navigate('SignIn')
     } catch {
       Alert.alert('Ops!', 'parece que algo não saiu como esperado, tente novamente', [{
         text: 'ok',
@@ -96,7 +95,7 @@ export const SignUp = () => {
               secureTextEntry
             />
             <Button text="Register" loading={loading} onPress={() => handleSignUp()} />
-            <SignInButton onPress={() => navigate(routes.SIGNIN as never)}>
+            <SignInButton onPress={() => navigate('SignIn')}>
               <SignInButtonIcon />
               <SignInButtonText>Back</SignInButtonText>
             </SignInButton>
