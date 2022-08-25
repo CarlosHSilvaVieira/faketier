@@ -2,8 +2,9 @@ import styled from 'styled-components/native'
 import FakkiterLogo from '../../assets/icon/fakkiter-icon.svg'
 import CreateAccountIcon from '../../assets/icon/create-account-icon.svg'
 import { rgba } from 'polished'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export const SignInContainer = styled.SafeAreaView`
+export const SignInContainer = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
   justify-content: center;

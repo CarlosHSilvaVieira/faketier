@@ -2,7 +2,7 @@ import qs from 'qs';
 import { apiConstructor } from './api';
 import { User } from './auth';
 
-export interface Fakitter {
+export interface FakitterData {
   id: number;
   text: string;
   createdAt: Date,
@@ -53,7 +53,7 @@ interface GenericPaginationResponse<T> {
   };
 }
 
-const fakitterMapper = (response: GetFakittersResponse): Fakitter => {
+const fakitterMapper = (response: GetFakittersResponse): FakitterData => {
   const { attributes, id } = response;
 
   return {
@@ -75,7 +75,7 @@ type GetFakittersServiceParams = {
   pageSize: number
 }
 
-export const getFakittersService = async ({page, pageSize}: GetFakittersServiceParams): Promise<Fakitter[]> => {
+export const getFakittersService = async ({page, pageSize}: GetFakittersServiceParams): Promise<FakitterData[]> => {
   const { data } = await apiConstructor().get<
     GenericPaginationResponse<GetFakittersResponse>
   >('fakitters', {
@@ -92,7 +92,7 @@ export const getFakittersService = async ({page, pageSize}: GetFakittersServiceP
 
 export const getFakittersByUserIdService = async (
   userId: number,
-): Promise<Fakitter[]> => {
+): Promise<FakitterData[]> => {
   const { data } = await apiConstructor().get<
     GenericPaginationResponse<GetFakittersResponse>
   >(

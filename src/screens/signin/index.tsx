@@ -21,25 +21,23 @@ export const SignIn = () => {
 
   const { signIn } = useAuth()
   const { navigate } = useNavigation()
-  
-    const handleSignIn = useCallback(async () => {
-        console.log({ email, password })
-        setLoading(true);
 
-      try {
-        await signIn({ email, password });
+  const handleSignIn = useCallback(async () => {
+    setLoading(true)
+    try {
+      await signIn({ email, password })
 
-        setLoading(false);
-      } catch {
-        setLoading(false);
+      setLoading(false)
+    } catch {
+      setLoading(false)
 
-        Alert.alert('Shiiiii!', 'Não foi possível logar', [
-          {
-            text: 'Tentar novamente',
-          },
-        ]);
-      }
-    }, [email, password, signIn])
+      Alert.alert('Shiiiii!', 'Não foi possível logar', [
+        {
+          text: 'Tentar novamente'
+        }
+      ])
+    }
+  }, [email, password, signIn])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -65,7 +63,11 @@ export const SignIn = () => {
             keyboardType="default"
             secureTextEntry
           />
-          <Button text="Login" loading={loading} onPress={() => handleSignIn()} />
+          <Button
+            text="Login"
+            loading={loading}
+            onPress={() => handleSignIn()}
+          />
           <SignUpButton onPress={() => navigate('SignUp')}>
             <SignUpButtonIcon />
             <SignUpButtonText>Sign Up</SignUpButtonText>

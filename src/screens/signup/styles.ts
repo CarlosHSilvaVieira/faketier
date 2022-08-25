@@ -2,8 +2,9 @@ import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
 import GoBackIcon from '../../assets/icon/go-back-icon.svg'
 import FakkiterLogo from '../../assets/icon/fakkiter-icon.svg'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const SignUpContainer = styled.SafeAreaView`
+export const SignUpContainer = styled(SafeAreaView)`
   flex: 1;
   position: relative;
   box-sizing: border-box;
