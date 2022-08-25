@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
 import GoBackIcon from '../../assets/icon/go-back-icon.svg'
-import FakkiterLogo from '../../assets/icon/fakkiter-logo.svg'
+import FakkiterLogo from '../../assets/icon/fakkiter-icon.svg'
 
 export const SignUpContainer = styled.SafeAreaView`
   flex: 1;

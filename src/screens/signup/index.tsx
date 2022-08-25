@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
+  Alert,
   ImageBackground,
   Keyboard,
   TouchableWithoutFeedback
 } from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 import {
   SignUpContainer,
   BackgroundContainer,
@@ -19,6 +21,8 @@ import {
 } from './styles'
 import { Button } from '../../components/button'
 import { Input } from '../../components/input'
+import { register } from '../../services/auth'
+import routes from '../../routes/routes'
 
 export const SignUp = () => {
   const background = require('../../assets/img/fake-1.jpg')
@@ -28,6 +32,22 @@ export const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const { navigate } = useNavigation()
+
+  const handleSignUp = useCallback(async () => {
+    try {
+      setLoading(true)
+      await register({ email, name, password, username })
+      navigate(routes.SIGNIN as never)
+    } catch {
+      Alert.alert('Ops!', 'parece que algo não saiu como esperado, tente novamente', [{
+        text: 'ok',
+      }])
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -57,6 +77,7 @@ export const SignUp = () => {
               onChangeText={setUsername}
               placeholder="Username"
               autoCapitalize="none"
+              returnKeyType='next'
             />
             <Input
               value={email}
@@ -64,6 +85,7 @@ export const SignUp = () => {
               placeholder="Email"
               autoCapitalize="none"
               keyboardType="email-address"
+              returnKeyType='next'
             />
             <Input
               value={password}
@@ -73,8 +95,8 @@ export const SignUp = () => {
               keyboardType="default"
               secureTextEntry
             />
-            <Button text="Register" loading={loading} onPress={() => {}} />
-            <SignInButton onPress={() => {}}>
+            <Button text="Register" loading={loading} onPress={() => handleSignUp()} />
+            <SignInButton onPress={() => navigate(routes.SIGNIN as never)}>
               <SignInButtonIcon />
               <SignInButtonText>Back</SignInButtonText>
             </SignInButton>
