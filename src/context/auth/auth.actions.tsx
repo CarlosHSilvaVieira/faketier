@@ -13,25 +13,14 @@ export interface AuthState {
   user: User
 }
 
-const signin = (callback: ({}: AuthState) => void) => useCallback(async ({ email, password }: SignInParams) => {
+const login = (callback: ({}: AuthState) => void) => useCallback(async ({ email, password }: SignInParams) => {
   const { jwt, user } = await signInService(email, password)
   await AsyncStorage.multiSet([
     ['@Faketier:jwt', jwt],
     ['@Faketier:user', JSON.stringify(user)]
   ])
 
-  api.interceptors.request.use(
-    config => {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${jwt}`
-      }
-      return config
-    },
-    error => {
-      return Promise.reject(error)
-    }
-  )
+  api.defaults.headers.common.Authorization = `Bearer ${jwt}`
 
   return callback({ jwt, user })
 }, [])
@@ -57,4 +46,4 @@ const getAuthFromStorage = async (callback: ({}: AuthState) => void) => {
   }
 }
 
-export { signin, logout, getAuthFromStorage }
+export { login, logout, getAuthFromStorage }

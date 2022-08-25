@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useState } from 'react'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Button } from '../../components/button'
 import { Input } from '../../components/input'
+import { useAuth } from '../../context/auth'
 import {
   Brand,
   Form,
@@ -18,11 +19,27 @@ export const SignIn = () => {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const { signIn } = useAuth()
   const { navigate } = useNavigation()
   
-    const handleSignIn = useCallback(() => {
-        
-    }, [])
+    const handleSignIn = useCallback(async () => {
+        console.log({ email, password })
+        setLoading(true);
+
+      try {
+        await signIn({ email, password });
+
+        setLoading(false);
+      } catch {
+        setLoading(false);
+
+        Alert.alert('Shiiiii!', 'Não foi possível logar', [
+          {
+            text: 'Tentar novamente',
+          },
+        ]);
+      }
+    }, [email, password, signIn])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -48,7 +65,7 @@ export const SignIn = () => {
             keyboardType="default"
             secureTextEntry
           />
-          <Button text="Login" loading={loading} />
+          <Button text="Login" loading={loading} onPress={() => handleSignIn()} />
           <SignUpButton onPress={() => navigate('SignUp')}>
             <SignUpButtonIcon />
             <SignUpButtonText>Sign Up</SignUpButtonText>

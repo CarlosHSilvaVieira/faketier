@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '../../services/auth'
 import {
-  signin,
+  login,
   logout,
   getAuthFromStorage,
   AuthState,
@@ -11,7 +11,7 @@ import {
 export interface AuthContextData {
   user: User
   loading: boolean
-  signin: (params: SignInParams) => Promise<void>
+  signIn: (params: SignInParams) => Promise<void>
   logout: () => void
 }
 
@@ -40,7 +40,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         user: state.user,
         loading,
         logout: logout(setState),
-        signin: signin(setState)
+        signIn: login(setState)
       }}>
       {children}
     </AuthContext.Provider>

@@ -38,7 +38,13 @@ export const SignUp = () => {
     try {
       setLoading(true)
       await register({ email, name, password, username })
-      navigate('SignIn')
+      setLoading(false)
+      Alert.alert('Certin!', 'Seu cadastro foi feito com sucesso', [
+        {
+          text: 'Ir para login',
+          onPress: () => navigate('SignIn'),
+        },
+      ]);
     } catch {
       Alert.alert('Ops!', 'parece que algo não saiu como esperado, tente novamente', [{
         text: 'ok',
@@ -46,7 +52,7 @@ export const SignUp = () => {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [email, name, password, username])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
