@@ -51,19 +51,33 @@ export const Home = () => {
     getFakitters()
   }, [])
 
+  const data: FakitterData[] = [{
+    id: 1,
+    createdAt: new Date(),
+    text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati rerum sit commodi maxime dicta? Maxime commodi quas recusandae aut optio omnis velit aspernatur amet magnam ad quae officia, dolorum minus.',
+    user: {
+      createdAt: new Date(),
+      email: 'exemplo@email.com',
+      id: 1,
+      name: 'Usuario',
+      username: 'usu_ario'
+    }
+  }]
+
   return (
     <HomeContainer>
       <TouchableOpacity onPress={() => logout()}>
         <Text>Logout</Text>
       </TouchableOpacity>
       <FlatList
-        data={fakitters}
+        // data={fakitters}
+        data={data}
         renderItem={({ item }) => <Fakitter fakitter={item} />}
         ListHeaderComponent={() => (
           <HeaderContainer>
             <HeaderContent>
-              <Text>{user.name}</Text>
-              <Text>{user.username}</Text>
+              <Text>{'user?.name'}</Text>
+              <Text>@{'user?.username'}</Text>
             </HeaderContent>
           </HeaderContainer>
         )}

@@ -1,14 +1,15 @@
 import React from 'react'
+
 import {
-  FakitterAuthor,
+  Author,
   FakitterContainer,
   FakitterContent,
-  FakitterHeader,
-  FakitterText,
-  FakitterUsername
+  Header,
+  Text,
+  Username
 } from './styles'
 import { FakitterData } from '../../services/fakitters'
-// import Avatar from '../Avatar';
+import { Avatar } from '../avatar'
 
 type FakitterProps = {
   fakitter: FakitterData
@@ -17,13 +18,13 @@ type FakitterProps = {
 export const Fakitter = ({ fakitter }: FakitterProps) => {
   return (
     <FakitterContainer>
-      {/*<Avatar user={fakitter.user} size={40} />*/}
+      <Avatar />
       <FakitterContent>
-        <FakitterHeader>
-          <FakitterAuthor>{fakitter.user.name}</FakitterAuthor>
-          <FakitterUsername> @{fakitter.user.username}</FakitterUsername>
-        </FakitterHeader>
-        <FakitterText>{fakitter.text}</FakitterText>
+        <Header>
+          <Author>{fakitter.user.name}</Author>
+          <Username> @{fakitter.user.username}</Username>
+        </Header>
+        <Text>{fakitter.text}</Text>
       </FakitterContent>
     </FakitterContainer>
   )

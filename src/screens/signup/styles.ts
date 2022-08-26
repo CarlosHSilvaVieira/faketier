@@ -3,27 +3,18 @@ import {StyleSheet} from 'react-native';
 import GoBackIcon from '../../assets/icon/go-back-icon.svg'
 import FakkiterLogo from '../../assets/icon/fakkiter-icon.svg'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { rgba } from 'polished';
 
 export const SignUpContainer = styled(SafeAreaView)`
   flex: 1;
+  height: 100%;
+  width: 100%;
   position: relative;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
+  background-color: ${({theme}) => rgba(theme.primary.colorLight, 0.4)};
 `;
-
-export const BackgroundContainer = styled.View`
-  flex: 1;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0%;
-  background-color: ${({theme}) => theme.primary.colorLight};
-  opacity: 0.4;
-  z-index: -1;
-  object-fit: cover;
-`;
-
 
 export const Heading = styled.View`
   box-sizing: border-box;

@@ -3,13 +3,14 @@ import FakkiterLogo from '../../assets/icon/fakkiter-icon.svg'
 import CreateAccountIcon from '../../assets/icon/create-account-icon.svg'
 import { rgba } from 'polished'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet } from 'react-native'
 
 export const SignInContainer = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
   justify-content: center;
-
-  background-color: ${({ theme }) => rgba(theme.primary.color, 0.8)};
+  box-sizing: border-box;
+  background-color: ${({ theme }) => rgba(theme.primary.color, 0.4)};
 `
 
 export const Brand = styled.View``
@@ -31,7 +32,7 @@ export const SignUpButton = styled.TouchableOpacity`
 
 export const SignUpButtonIcon = styled(CreateAccountIcon).attrs(
   ({ theme }) => ({
-    fill: theme.secondary.text
+    fill: theme.primary.text
   })
 )`
   margin-right: 10px;
@@ -42,8 +43,16 @@ export const Logo = styled(FakkiterLogo).attrs(({ theme }) => ({
 }))`
   height: 50px;
   width: 50px;
-`;
+`
 
 export const SignUpButtonText = styled.Text`
-  color: ${({ theme }) => theme.secondary.text};
+  color: ${({ theme }) => theme.primary.text};
 `
+
+export const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+});

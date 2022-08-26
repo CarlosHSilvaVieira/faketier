@@ -18,5 +18,5 @@ export const BtnText = styled.Text`
 `;
 
 export const ActivityIndicatorView = styled.View`
-  margin-right: 10px;
+  margin-left: 10px;
 `;

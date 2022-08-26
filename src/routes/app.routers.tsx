@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home } from '../screens/home'
 import { routes } from '.'
 
@@ -8,10 +8,11 @@ export type AppScreens = {
 }
 
 export const AppRoutes = () => {
-    const AppStack = createStackNavigator()
+    const AppStack = createBottomTabNavigator()
     
     return (
         <AppStack.Navigator
+            initialRouteName="Home"
             screenOptions={{
                 headerShown: false,
             }}

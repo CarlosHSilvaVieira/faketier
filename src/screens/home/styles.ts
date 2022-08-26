@@ -3,7 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const HomeContainer = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.primary.color};
+  background-color: ${({ theme }) => theme.secondary.text};
+  padding: 0px 20px;
 `
 
 export const ListContainer = styled.View`

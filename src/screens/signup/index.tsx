@@ -8,7 +8,6 @@ import {
 import {useNavigation} from '@react-navigation/native'
 import {
   SignUpContainer,
-  BackgroundContainer,
   Title,
   Logo,
   Heading,
@@ -24,7 +23,7 @@ import { Input } from '../../components/input'
 import { register } from '../../services/auth'
 
 export const SignUp = () => {
-  const background = require('../../assets/img/fake-1.jpg')
+  const background = require('../../assets/img/fake-2.jpg')
 
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
@@ -61,7 +60,6 @@ export const SignUp = () => {
         source={background}
         style={styles.image}>
         <SignUpContainer>
-          <BackgroundContainer />
           <Brand>
             <Logo width={80} height={80} />
           </Brand>
