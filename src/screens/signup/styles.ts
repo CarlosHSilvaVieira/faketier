@@ -9,11 +9,10 @@ export const SignUpContainer = styled(SafeAreaView)`
   flex: 1;
   height: 100%;
   width: 100%;
-  position: relative;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  background-color: ${({theme}) => rgba(theme.primary.colorLight, 0.4)};
+  background-color: ${({theme}) => rgba(theme.primary.color, 0.4)};
 `;
 
 export const Heading = styled.View`
