@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Text, TouchableOpacity, FlatList, RefreshControl } from 'react-native'
-import { HomeContainer, HeaderContainer, UserContent, styles, UserContainer } from './styles'
+import { Text, FlatList, RefreshControl } from 'react-native'
+import {
+  HomeContainer,
+  HeaderContainer,
+  UserContent,
+  styles,
+  UserContainer
+} from './styles'
 import { Fakitter } from '../../components/fakitter'
 import { useAuth } from '../../context/auth'
 import { FakitterData, getFakittersService } from '../../services/fakitters'
@@ -9,7 +15,7 @@ import { Input } from '../../components/input'
 import { postFakkit } from '../../services/fakitters'
 
 export const Home = () => {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   const [fakitters, setFakitters] = useState<FakitterData[]>([])
   const [page, setPage] = useState<number>(1)
   const [refreshing, isRefreshing] = useState<boolean>(false)
@@ -54,7 +60,7 @@ export const Home = () => {
 
   const sendFakkiter = useCallback(async () => {
     try {
-      await postFakkit({ data: { text: fakkiter, user: 1 } })
+      await postFakkit({ data: { text: fakkiter, user: user.id } })
       await refreshData()
     } catch (error) {
       console.error(error)
@@ -65,80 +71,27 @@ export const Home = () => {
     getFakitters()
   }, [])
 
-  const data: FakitterData[] = [
-    {
-      id: 1,
-      createdAt: new Date(),
-      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati rerum sit commodi maxime dicta? Maxime commodi quas recusandae aut optio omnis velit aspernatur amet magnam ad quae officia, dolorum minus.',
-      user: {
-        createdAt: new Date(),
-        email: 'exemplo@email.com',
-        id: 1,
-        name: 'Usuario',
-        username: 'usu_ario'
-      }
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati rerum sit commodi maxime dicta? Maxime commodi quas recusandae aut optio omnis velit aspernatur amet magnam ad quae officia, dolorum minus.',
-      user: {
-        createdAt: new Date(),
-        email: 'exemplo@email.com',
-        id: 1,
-        name: 'Usuario',
-        username: 'usu_ario'
-      }
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati rerum sit commodi maxime dicta? Maxime commodi quas recusandae aut optio omnis velit aspernatur amet magnam ad quae officia, dolorum minus.',
-      user: {
-        createdAt: new Date(),
-        email: 'exemplo@email.com',
-        id: 1,
-        name: 'Usuario',
-        username: 'usu_ario'
-      }
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati rerum sit commodi maxime dicta? Maxime commodi quas recusandae aut optio omnis velit aspernatur amet magnam ad quae officia, dolorum minus.',
-      user: {
-        createdAt: new Date(),
-        email: 'exemplo@email.com',
-        id: 1,
-        name: 'Usuario',
-        username: 'usu_ario'
-      }
-    }
-  ]
-
   return (
     <HomeContainer>
       <HeaderContainer>
         <UserContainer>
           <Avatar />
           <UserContent>
-            <Text>{'user?.name'}</Text>
-            <Text>@{'user?.username'}</Text>
+            <Text>{user?.name}</Text>
+            <Text>@{user?.username}</Text>
           </UserContent>
         </UserContainer>
         <Input
-        containerStyles={styles.inputContainer}
-        placeholder='No que você está pensando?'
-        returnKeyType='send'
-        value={fakkiter}
-        onChangeText={setFakkiter}
-        onSubmitEditing={() => sendFakkiter()}
-      />
+          containerStyles={styles.inputContainer}
+          placeholder="No que você está pensando?"
+          returnKeyType="send"
+          value={fakkiter}
+          onChangeText={setFakkiter}
+          onSubmitEditing={() => sendFakkiter()}
+        />
       </HeaderContainer>
-      
       <FlatList
-        // data={fakitters}
-        data={data}
+        data={fakitters}
         renderItem={({ item }) => <Fakitter fakitter={item} />}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={refreshData} />

@@ -92,6 +92,8 @@ export const getFakittersService = async ({page, pageSize}: GetFakittersServiceP
 
 export const getFakittersByUserIdService = async (
   userId: number,
+  page: number,
+  pageSize: number,
 ): Promise<FakitterData[]> => {
   const { data } = await apiConstructor().get<
     GenericPaginationResponse<GetFakittersResponse>
@@ -107,6 +109,10 @@ export const getFakittersByUserIdService = async (
             },
           },
         },
+        pagination: {
+         page,
+         pageSize   
+        }
       },
       {
         encodeValuesOnly: true, // prettify URL

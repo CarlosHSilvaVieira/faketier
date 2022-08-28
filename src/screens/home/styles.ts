@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native'
 export const HomeContainer = styled(SafeAreaView)`
   flex: 1;
   padding: 0px 2px;
+  background-color: ${({ theme }) => theme.primary.colorLight};
 `
 
 export const ListContainer = styled.View`

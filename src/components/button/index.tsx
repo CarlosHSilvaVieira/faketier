@@ -4,7 +4,7 @@ import { BtnContainer, BtnText, ActivityIndicatorView } from './styles'
 
 export interface ButtonProps extends TouchableOpacityProps {
   text: string
-  loading: boolean
+  loading?: boolean
 }
 
 export const Button = ({ text, loading, ...rest }: ButtonProps) => {

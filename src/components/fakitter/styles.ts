@@ -4,7 +4,7 @@ export const FakitterContainer = styled.View`
   padding: 15px;
   flex-flow: row;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-top: 10px;
   background-color: ${({ theme }) => theme.secondary.text};
 `;
 

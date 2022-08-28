@@ -9,7 +9,8 @@ import { AuthRoutes } from './auth.routes'
 export const routes = {
   SIGNIN: 'SignIn',
   SIGNUP: 'SignUp',
-  HOME: 'Home'
+  HOME: 'Home',
+  PROFILE: 'Profile' 
 }
 
 const Loader = () => {
@@ -23,9 +24,9 @@ const Loader = () => {
 }
 
 export const Router = () => {
-  // const { user, loading } = useAuth()
-  // if (loading) {return <Loader />}
-  // if (!user) {return <AuthRoutes />}
+  const { user, loading } = useAuth()
+  if (loading) {return <Loader />}
+  if (!user) {return <AuthRoutes />}
 
   return <AppRoutes />
 }
