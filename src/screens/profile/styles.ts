@@ -16,7 +16,7 @@ export const UserContainer = styled.View`
 `
 
 export const UserContent = styled.View`
-    margin-left: 20px;
+  margin-left: 20px;
 `
 export const Text = styled.Text`
 `;

@@ -14,7 +14,7 @@ export const ListContainer = styled.View`
 export const HeaderContainer = styled.View`
   flex-direction: column;
   align-items: flex-start;
-  padding: 15px 20px;
+  margin: 0px 20px;
 `
 
 export const UserContainer = styled.View`
@@ -24,7 +24,7 @@ export const UserContainer = styled.View`
 `
 
 export const UserContent = styled.View`
-  margin-left: 16px;
+  margin-left: 20px;
 `
 export const Form = styled.View`
   background-color: orangered;

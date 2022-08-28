@@ -27,8 +27,8 @@ const IconBar = ({
   const getIconName = (focused: boolean, route: string) => {
     if (route === 'Home') {
       return focused ? 'home' : 'home-outline'
-    } else if (route === 'User') {
-      return focused ? 'person-circle' : 'person-circle-outline'
+    } else if (route === 'Profile') {
+      return focused ? 'person-circle-sharp' : 'person-circle-outline'
     }
 
     return ''
@@ -57,9 +57,8 @@ export const AppRoutes = () => {
         tabBarActiveTintColor: theme.primary.colorDark,
         tabBarInactiveTintColor: 'gray',
       })}>
-
-      <AppStack.Screen name={routes.PROFILE} component={Profile} />
       <AppStack.Screen name={routes.HOME} component={Home} />
+      <AppStack.Screen name={routes.PROFILE} component={Profile} />
     </AppStack.Navigator>
   )
 }
