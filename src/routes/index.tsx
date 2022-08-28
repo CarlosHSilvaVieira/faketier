@@ -23,9 +23,9 @@ const Loader = () => {
 }
 
 export const Router = () => {
-  const { user, loading } = useAuth()
-  if (loading) {return <Loader />}
-  if (!user) {return <AuthRoutes />}
+  // const { user, loading } = useAuth()
+  // if (loading) {return <Loader />}
+  // if (!user) {return <AuthRoutes />}
 
   return <AppRoutes />
 }

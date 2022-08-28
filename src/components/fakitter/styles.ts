@@ -28,4 +28,7 @@ export const Username = styled.Text`
   font-style: italic;
 `;
 
-export const Text = styled.Text``;
+export const Text = styled.Text`
+  text-align: justify;
+  line-height: 20px;
+`;

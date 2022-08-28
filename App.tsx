@@ -1,5 +1,5 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
+import { useColorScheme, StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 import { theme } from './src/styles/base/theme'
 import { Router } from './src/routes'
@@ -15,6 +15,11 @@ export default function App() {
         <NavigationContainer>
           <Router />
         </NavigationContainer>
+        {/* <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        /> */}
       </ThemeProvider>
     </AuthProvider>
   )
