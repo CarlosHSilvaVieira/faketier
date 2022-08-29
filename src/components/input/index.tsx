@@ -1,13 +1,36 @@
 import React, { forwardRef } from 'react'
 import { TextInputProps } from 'react-native'
-import { Container, StyledTextInput } from './styles'
+import { Container, ErrorText, InputContainer, StyledTextInput } from './styles'
+import { Control, Controller } from 'react-hook-form'
 
 export interface InputProps extends TextInputProps {
-  containerStyles?: any,
+  containerStyles?: any
+  control: Control
+  name: string
+  error?: any
 }
 
-export const Input = ({ containerStyles, ...rest }: InputProps) => (
-  <Container style={containerStyles ?? {}}>
+export interface StyledInputProps extends TextInputProps {
+  containerStyles?: any
+}
+
+const StyledInput = ({ containerStyles, ...rest }: StyledInputProps) => (
+  <InputContainer style={containerStyles ?? {}}>
     <StyledTextInput {...rest} />
-  </Container>
+  </InputContainer>
 )
+
+export const Input = ({ control, name, error, ...rest }: InputProps) => {
+  return (
+    <Container>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <StyledInput onChangeText={onChange} value={value} {...rest} />
+        )}
+      />
+      { error && <ErrorText>{error}</ErrorText> }
+    </Container>
+  )
+}

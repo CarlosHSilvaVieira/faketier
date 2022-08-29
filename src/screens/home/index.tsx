@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Text, FlatList, RefreshControl } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup'
 import {
   HomeContainer,
   HeaderContainer,
@@ -14,12 +17,21 @@ import { Avatar } from '../../components/avatar'
 import { Input } from '../../components/input'
 import { postFakkit } from '../../services/fakitters'
 
+interface FakkiterForm {
+  [key: string]: string;
+}
+
+const validator = Yup.object().shape({
+  fakkiter: Yup.string().required('Fakkiter is required'),
+})
+
 export const Home = () => {
   const { user } = useAuth()
   const [fakitters, setFakitters] = useState<FakitterData[]>([])
   const [page, setPage] = useState<number>(1)
   const [refreshing, isRefreshing] = useState<boolean>(false)
-  const [fakkiter, setFakkiter] = useState('')
+  const { control, handleSubmit, setValue } = useForm({ resolver: yupResolver(validator) })
+
   const pageSize = 10
 
   const getFakitters = async () => {
@@ -38,8 +50,6 @@ export const Home = () => {
         page: newPage,
         pageSize
       })
-      console.log(newFakitters.length)
-
       setFakitters([...fakitters, ...newFakitters])
       setPage(newPage)
     } catch (error) {
@@ -58,14 +68,15 @@ export const Home = () => {
     }
   }
 
-  const sendFakkiter = useCallback(async () => {
+  const sendFakkiter = useCallback(async ({ fakkiter } : FakkiterForm) => {
     try {
       await postFakkit({ data: { text: fakkiter, user: user.id } })
       await refreshData()
+      setValue('fakkiter', '')
     } catch (error) {
       console.error(error)
     }
-  }, [fakkiter])
+  }, [])
 
   useEffect(() => {
     getFakitters()
@@ -82,12 +93,12 @@ export const Home = () => {
           </UserContent>
         </UserContainer>
         <Input
+          control={control}
+          name="fakkiter"
           containerStyles={styles.inputContainer}
           placeholder="No que você está pensando?"
           returnKeyType="send"
-          value={fakkiter}
-          onChangeText={setFakkiter}
-          onSubmitEditing={() => sendFakkiter()}
+          onSubmitEditing={handleSubmit(sendFakkiter)}
         />
       </HeaderContainer>
       <FlatList

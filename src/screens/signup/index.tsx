@@ -6,6 +6,10 @@ import {
   TouchableWithoutFeedback
 } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup'
+
 import {
   SignUpContainer,
   Title,
@@ -22,18 +26,26 @@ import { Button } from '../../components/button'
 import { Input } from '../../components/input'
 import { register } from '../../services/auth'
 
+interface SignUpForm {
+  [key: string]: string;
+}
+
+const validator = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  username: Yup.string().required('UserName is required'),
+  email: Yup.string().required('Email is required'),
+  password: Yup.string().required('Password is required')
+})
+
 export const SignUp = () => {
   const background = require('../../assets/img/fake-2.jpg')
 
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
   const { navigate } = useNavigation()
+  const { control, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(validator) })
 
-  const handleSignUp = useCallback(async () => {
+  const handleSignUp = useCallback(async ({ email, name, password, username }: SignUpForm) => {
     try {
       setLoading(true)
       await register({ email, name, password, username })
@@ -51,7 +63,7 @@ export const SignUp = () => {
     } finally {
       setLoading(false)
     }
-  }, [email, name, password, username])
+  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -68,37 +80,41 @@ export const SignUp = () => {
           </Heading>
           <Form>
             <Input
-              value={name}
-              onChangeText={setName}
+              control={control}
+              name="name"
+              error={errors?.name && errors.name?.message}
               placeholder="Name"
               maxLength={50}
               keyboardType="default"
               returnKeyType="next"
             />
             <Input
-              value={username}
-              onChangeText={setUsername}
+              control={control}
+              name="username"
+              error={errors?.username && errors.username?.message}
               placeholder="Username"
               autoCapitalize="none"
               returnKeyType='next'
             />
             <Input
-              value={email}
-              onChangeText={setEmail}
+              control={control}
+              name="email"
+              error={errors?.email && errors.email?.message}
               placeholder="Email"
               autoCapitalize="none"
               keyboardType="email-address"
               returnKeyType='next'
             />
             <Input
-              value={password}
-              onChangeText={setPassword}
+              control={control}
+              name="password"
+              error={errors?.password && errors.password?.message}
               placeholder="Password"
               autoCapitalize="none"
               keyboardType="default"
               secureTextEntry
             />
-            <Button text="Register" loading={loading} onPress={() => handleSignUp()} />
+            <Button text="Register" loading={loading} onPress={handleSubmit(handleSignUp)} />
             <SignInButton onPress={() => navigate('SignIn')}>
               <SignInButtonIcon />
               <SignInButtonText>Back</SignInButtonText>

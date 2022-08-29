@@ -31,7 +31,7 @@ const IconBar = ({
       return focused ? 'person-circle-sharp' : 'person-circle-outline'
     }
 
-    return ''
+    return 'information-circle-outline'
   }
 
   useEffect(() => {
