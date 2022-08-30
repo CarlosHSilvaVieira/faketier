@@ -91,7 +91,6 @@ export const Home = () => {
   }, [])
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
       <HomeContainer>
         <HeaderContainer>
           <UserContainer>
@@ -119,6 +118,5 @@ export const Home = () => {
           onEndReached={getMoreData}
         />
       </HomeContainer>
-    </TouchableWithoutFeedback>
   )
 }
