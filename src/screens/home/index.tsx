@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Text, FlatList, RefreshControl } from 'react-native'
+import {
+  Text,
+  FlatList,
+  RefreshControl,
+  TouchableWithoutFeedback,
+  Keyboard
+} from 'react-native'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import {
   HomeContainer,
@@ -18,11 +24,11 @@ import { Input } from '../../components/input'
 import { postFakkit } from '../../services/fakitters'
 
 interface FakkiterForm {
-  [key: string]: string;
+  [key: string]: string
 }
 
 const validator = Yup.object().shape({
-  fakkiter: Yup.string().required('Fakkiter is required'),
+  fakkiter: Yup.string().required('Fakkiter is required')
 })
 
 export const Home = () => {
@@ -30,7 +36,9 @@ export const Home = () => {
   const [fakitters, setFakitters] = useState<FakitterData[]>([])
   const [page, setPage] = useState<number>(1)
   const [refreshing, isRefreshing] = useState<boolean>(false)
-  const { control, handleSubmit, setValue } = useForm({ resolver: yupResolver(validator) })
+  const { control, handleSubmit, setValue } = useForm({
+    resolver: yupResolver(validator)
+  })
 
   const pageSize = 10
 
@@ -68,7 +76,7 @@ export const Home = () => {
     }
   }
 
-  const sendFakkiter = useCallback(async ({ fakkiter } : FakkiterForm) => {
+  const sendFakkiter = useCallback(async ({ fakkiter }: FakkiterForm) => {
     try {
       await postFakkit({ data: { text: fakkiter, user: user.id } })
       await refreshData()
@@ -83,32 +91,34 @@ export const Home = () => {
   }, [])
 
   return (
-    <HomeContainer>
-      <HeaderContainer>
-        <UserContainer>
-          <Avatar />
-          <UserContent>
-            <Text>{user?.name}</Text>
-            <Text>@{user?.username}</Text>
-          </UserContent>
-        </UserContainer>
-        <Input
-          control={control}
-          name="fakkiter"
-          containerStyles={styles.inputContainer}
-          placeholder="No que você está pensando?"
-          returnKeyType="send"
-          onSubmitEditing={handleSubmit(sendFakkiter)}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
+      <HomeContainer>
+        <HeaderContainer>
+          <UserContainer>
+            <Avatar />
+            <UserContent>
+              <Text>{user?.name}</Text>
+              <Text>@{user?.username}</Text>
+            </UserContent>
+          </UserContainer>
+          <Input
+            control={control}
+            name="fakkiter"
+            containerStyles={styles.inputContainer}
+            placeholder="No que você está pensando?"
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit(sendFakkiter)}
+          />
+        </HeaderContainer>
+        <FlatList
+          data={fakitters}
+          renderItem={({ item }) => <Fakitter fakitter={item} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={refreshData} />
+          }
+          onEndReached={getMoreData}
         />
-      </HeaderContainer>
-      <FlatList
-        data={fakitters}
-        renderItem={({ item }) => <Fakitter fakitter={item} />}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={refreshData} />
-        }
-        onEndReached={getMoreData}
-      />
-    </HomeContainer>
+      </HomeContainer>
+    </TouchableWithoutFeedback>
   )
 }
